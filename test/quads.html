@@ -1,0 +1,45 @@
+<body>
+<script src="../math/math-utils.js"></script>
+<script src="../math/vector.js"></script>
+
+<script src="../rendering/index.js"></script>
+
+<canvas width="600px" height="400px" id="screen"></canvas>
+<script>
+	'use strict';
+
+	let canvas = document.getElementById('screen');
+	let context = canvas.getContext('2d');
+
+	let camera = makeCamera(vec(canvas.width, canvas.height), vec(0, 0), 0, vec(1, 1));
+
+	let quad = {
+		transform: {
+			position: vec(0, 0),
+			rotation: 0,
+			scale: vec(0.5, 0.7)
+		},
+		renderScript: {
+			id: 'quad'
+		},
+		material: {
+			id: 'filledWithBorder',
+			params: {
+				fill: 'blue',
+				stroke: 'black',
+				lineWidth: 0.02
+			}
+		}
+	};
+
+	let renderScripts = {
+		quad: Shapes.quad
+	};
+
+	let materials = {
+		filledWithBorder: Materials.filledWithBorder
+	};
+
+	renderScene(context, camera, [quad], renderScripts, materials);
+</script>
+</body>

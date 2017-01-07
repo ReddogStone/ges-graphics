@@ -47,7 +47,15 @@ function renderScene(context, camera, elements, renderScripts, materials) {
 
 	elements.forEach(function(element) {
 		let renderScript = renderScripts[element.renderScript.id];
+		if (!renderScript) {
+			throw new Error(`Unknown render script "${element.renderScript.id}"`);
+		}
+
 		let material = materials[element.material.id];
+		if (!material) {
+			throw new Error(`Unknown material "${element.material.id}"`);
+		}
+
 		renderElement(context, element, renderScript, material);
 	});
 
@@ -63,6 +71,29 @@ const Shapes = {
 };
 
 const Materials = {
+	filled: {
+		before: function(context) {
+			context.save();
+		},
+		after: function(context, params) {
+			context.restore();
+			context.fillStyle = params.fill;
+			context.fill();
+		}
+	},
+	outline: {
+		before: function(context) {
+			context.save();
+		},
+		after: function(context, params) {
+			context.restore();
+
+			context.strokeStyle = params.stroke;
+			context.lineWidth = params.lineWidth;
+
+			context.stroke();
+		}
+	},
 	filledWithBorder: {
 		before: function(context) {
 			context.save();
@@ -75,7 +106,7 @@ const Materials = {
 			context.lineWidth = params.lineWidth;
 
 			context.fill();
-			context.stroke();		
+			context.stroke();
 		}
 	}
 };

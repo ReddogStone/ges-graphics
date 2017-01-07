@@ -77,3 +77,7 @@ function vrot(v, angle) {
 	var c = Math.cos(angle);
 	return vec(v.x * c - v.y * s, v.x * s + v.y * c);
 }
+
+function vperp(v) {
+	return vec(-v.y, v.x);
+}

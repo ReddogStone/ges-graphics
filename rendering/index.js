@@ -90,6 +90,7 @@ const Materials = {
 
 			context.strokeStyle = params.stroke;
 			context.lineWidth = params.lineWidth;
+			context.setLineDash(params.dash || []);
 
 			context.stroke();
 		}
@@ -104,6 +105,7 @@ const Materials = {
 			context.fillStyle = params.fill;
 			context.strokeStyle = params.stroke;
 			context.lineWidth = params.lineWidth;
+			context.setLineDash(params.dash || []);
 
 			context.fill();
 			context.stroke();
